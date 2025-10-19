@@ -9,10 +9,17 @@ export const client = createClient({
   token: import.meta.env.VITE_SANITY_TOKEN, // Optional: for draft content
   perspective: 'published', // Use 'published' to see latest published content
   ignoreBrowserTokenWarning: true,
+  withCredentials: false,
   stega: {
     enabled: false,
     studioUrl: '/studio',
   },
+})
+
+// Add timestamp to force fresh data
+client.config({
+  useCdn: false,
+  perspective: 'published',
 })
 
 const builder = imageUrlBuilder(client)
