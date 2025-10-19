@@ -23,18 +23,20 @@ app.use(cors({
     // Allow requests with no origin (like mobile apps or curl)
     if (!origin) return callback(null, true)
     
-    // Allow localhost and Vercel deployments
+    // Allow localhost and production deployments
     const allowedOrigins = [
       'http://localhost:3000',
       'http://localhost:3001',
       'http://127.0.0.1:3000',
       'http://127.0.0.1:3001',
       'http://127.0.0.1:12795',
+      'https://ubiquitous-begonia-1bc64e.netlify.app',
       process.env.CLIENT_URL
     ].filter(Boolean)
     
-    // Check if origin is in allowed list or matches Vercel pattern
+    // Check if origin is in allowed list or matches deployment patterns
     if (allowedOrigins.includes(origin) || 
+        origin.includes('netlify.app') ||
         origin.includes('eth002s-projects.vercel.app') ||
         origin.includes('maasai-beadwork-ecommerce')) {
       callback(null, true)
