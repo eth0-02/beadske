@@ -7,6 +7,7 @@ import BeadDivider from '@/components/BeadDivider'
 import { Product } from '@/lib/types'
 import { mockProducts } from '@/lib/mockProducts'
 import { motion } from 'framer-motion'
+import { getProducts } from '@/lib/sanity'
 
 export default function Shop() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -22,25 +23,33 @@ export default function Shop() {
     const fetchProducts = async () => {
       setLoading(true)
       try {
-        // Try to fetch from backend
-        const response = await fetch('http://localhost:9000/store/products?limit=50')
-        if (response.ok) {
-          const data = await response.json()
-          const formattedProducts = data.products.map((p: any) => ({
-            id: p.id || Math.random().toString(),
-            title: p.title,
-            description: p.description,
-            handle: p.handle,
-            thumbnail: p.images?.[0] || '/placeholder.svg',
-            variants: p.variants || [],
-            tags: p.tags || [],
-          }))
-          setProducts(formattedProducts)
-        } else {
-          throw new Error('Backend not available')
-        }
+        // Fetch from Sanity CMS
+        const sanityProducts = await getProducts()
+        
+        // Transform Sanity products to match Product type
+        const formattedProducts = sanityProducts.map((p: any) => ({
+          id: p._id,
+          title: p.title,
+          description: p.description,
+          handle: p.slug,
+          thumbnail: p.image || '/placeholder.svg',
+          price: p.price,
+          inventory: p.inventory,
+          featured: p.featured,
+          variants: [{
+            id: p._id,
+            title: 'Default',
+            prices: [{
+              amount: p.price * 100, // Convert to cents
+              currency_code: 'USD'
+            }]
+          }],
+          tags: p.category ? [{ value: p.category.slug }] : [],
+        }))
+        
+        setProducts(formattedProducts)
       } catch (error) {
-        console.log('Using mock data - backend not available')
+        console.error('Error fetching from Sanity:', error)
         // Fallback to mock data
         setProducts(mockProducts)
       } finally {
