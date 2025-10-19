@@ -1,0 +1,410 @@
+{
+  "store": {
+    "currencies": ["usd"],
+    "default_currency_code": "usd",
+    "swap_link_template": "http://localhost:3000/swap={swap_id}"
+  },
+  "regions": [
+    {
+      "id": "reg_kenya",
+      "name": "Kenya",
+      "currency_code": "usd",
+      "tax_rate": 0,
+      "payment_providers": ["manual"],
+      "fulfillment_providers": ["manual"],
+      "countries": ["ke"]
+    },
+    {
+      "id": "reg_international",
+      "name": "International",
+      "currency_code": "usd",
+      "tax_rate": 0,
+      "payment_providers": ["manual"],
+      "fulfillment_providers": ["manual"],
+      "countries": ["us", "gb", "ca", "au"]
+    }
+  ],
+  "products": [
+    {
+      "title": "Kenyan Pride Bracelet",
+      "subtitle": "Handcrafted beaded bracelet in Kenyan flag colors",
+      "description": "This stunning handcrafted bracelet embodies the spirit of Kenya through its vibrant beadwork in the colors of the national flag. Each bead is carefully selected and woven by skilled Maasai artisans using traditional techniques passed down through generations.",
+      "handle": "kenyan-pride-bracelet",
+      "is_giftcard": false,
+      "weight": 50,
+      "images": ["http://localhost:3000/placeholder.svg"],
+      "options": [{ "title": "Size" }],
+      "variants": [
+        {
+          "title": "Small",
+          "prices": [{ "currency_code": "usd", "amount": 2500 }],
+          "options": [{ "value": "Small" }],
+          "inventory_quantity": 20
+        },
+        {
+          "title": "Medium",
+          "prices": [{ "currency_code": "usd", "amount": 2500 }],
+          "options": [{ "value": "Medium" }],
+          "inventory_quantity": 25
+        },
+        {
+          "title": "Large",
+          "prices": [{ "currency_code": "usd", "amount": 2500 }],
+          "options": [{ "value": "Large" }],
+          "inventory_quantity": 15
+        }
+      ],
+      "tags": [{ "value": "bracelets" }, { "value": "red" }, { "value": "featured" }]
+    },
+    {
+      "title": "Maasai Heritage Necklace",
+      "subtitle": "Traditional beadwork necklace with cultural patterns",
+      "description": "A stunning necklace featuring intricate Maasai beadwork patterns representing heritage and tradition. Handcrafted with precision and care.",
+      "handle": "maasai-heritage-necklace",
+      "is_giftcard": false,
+      "weight": 100,
+      "images": ["http://localhost:3000/placeholder.svg"],
+      "options": [{ "title": "Style" }],
+      "variants": [
+        {
+          "title": "Classic",
+          "prices": [{ "currency_code": "usd", "amount": 4500 }],
+          "options": [{ "value": "Classic" }],
+          "inventory_quantity": 12
+        }
+      ],
+      "tags": [{ "value": "necklaces" }, { "value": "green" }, { "value": "featured" }]
+    },
+    {
+      "title": "Unity Anklet",
+      "subtitle": "Elegant anklet symbolizing peace and prosperity",
+      "description": "Delicate anklet featuring white and green beads representing peace and prosperity. Perfect for everyday wear.",
+      "handle": "unity-anklet",
+      "is_giftcard": false,
+      "weight": 30,
+      "images": ["http://localhost:3000/placeholder.svg"],
+      "options": [{ "title": "Size" }],
+      "variants": [
+        {
+          "title": "Adjustable",
+          "prices": [{ "currency_code": "usd", "amount": 2000 }],
+          "options": [{ "value": "Adjustable" }],
+          "inventory_quantity": 30
+        }
+      ],
+      "tags": [{ "value": "anklets" }, { "value": "white" }, { "value": "featured" }]
+    },
+    {
+      "title": "Warrior Spirit Bracelet",
+      "subtitle": "Bold design inspired by Maasai warrior traditions",
+      "description": "A powerful bracelet featuring black and red beads, inspired by the strength and courage of Maasai warriors.",
+      "handle": "warrior-spirit-bracelet",
+      "is_giftcard": false,
+      "weight": 60,
+      "images": ["http://localhost:3000/placeholder.svg"],
+      "options": [{ "title": "Size" }],
+      "variants": [
+        {
+          "title": "Medium",
+          "prices": [{ "currency_code": "usd", "amount": 3000 }],
+          "options": [{ "value": "Medium" }],
+          "inventory_quantity": 18
+        }
+      ],
+      "tags": [{ "value": "bracelets" }, { "value": "black" }, { "value": "featured" }]
+    },
+    {
+      "title": "Heritage Choker",
+      "subtitle": "Stunning choker necklace with intricate beadwork",
+      "description": "An elegant choker featuring traditional Maasai patterns in vibrant red beads. A statement piece for any occasion.",
+      "handle": "heritage-choker",
+      "is_giftcard": false,
+      "weight": 80,
+      "images": ["http://localhost:3000/placeholder.svg"],
+      "options": [{ "title": "Style" }],
+      "variants": [
+        {
+          "title": "Standard",
+          "prices": [{ "currency_code": "usd", "amount": 3500 }],
+          "options": [{ "value": "Standard" }],
+          "inventory_quantity": 10
+        }
+      ],
+      "tags": [{ "value": "necklaces" }, { "value": "red" }]
+    },
+    {
+      "title": "Prosperity Bracelet Set",
+      "subtitle": "Set of three bracelets in Kenyan flag colors",
+      "description": "A beautiful set of three coordinating bracelets featuring all the colors of the Kenyan flag. Perfect for stacking or gifting.",
+      "handle": "prosperity-bracelet-set",
+      "is_giftcard": false,
+      "weight": 120,
+      "images": ["http://localhost:3000/placeholder.svg"],
+      "options": [{ "title": "Size" }],
+      "variants": [
+        {
+          "title": "One Size",
+          "prices": [{ "currency_code": "usd", "amount": 5500 }],
+          "options": [{ "value": "One Size" }],
+          "inventory_quantity": 8
+        }
+      ],
+      "tags": [{ "value": "bracelets" }, { "value": "green" }, { "value": "set" }]
+    },
+    {
+      "title": "Maasai Beadwork T-Shirt - Black",
+      "subtitle": "Premium cotton t-shirt with traditional bead pattern print",
+      "description": "Celebrate Maasai culture with this premium 100% cotton t-shirt featuring an authentic beadwork pattern design. The print showcases traditional Maasai colors and patterns, making it a perfect blend of heritage and modern fashion. Soft, comfortable, and ethically made.",
+      "handle": "maasai-beadwork-tshirt-black",
+      "is_giftcard": false,
+      "weight": 200,
+      "images": ["http://localhost:3000/placeholder.svg"],
+      "options": [{ "title": "Size" }],
+      "variants": [
+        {
+          "title": "Small",
+          "prices": [{ "currency_code": "usd", "amount": 2800 }],
+          "options": [{ "value": "Small" }],
+          "inventory_quantity": 15
+        },
+        {
+          "title": "Medium",
+          "prices": [{ "currency_code": "usd", "amount": 2800 }],
+          "options": [{ "value": "Medium" }],
+          "inventory_quantity": 25
+        },
+        {
+          "title": "Large",
+          "prices": [{ "currency_code": "usd", "amount": 2800 }],
+          "options": [{ "value": "Large" }],
+          "inventory_quantity": 20
+        },
+        {
+          "title": "X-Large",
+          "prices": [{ "currency_code": "usd", "amount": 2800 }],
+          "options": [{ "value": "X-Large" }],
+          "inventory_quantity": 12
+        }
+      ],
+      "tags": [{ "value": "tshirts" }, { "value": "black" }, { "value": "apparel" }]
+    },
+    {
+      "title": "Kenyan Flag T-Shirt",
+      "subtitle": "Bold flag design on premium cotton",
+      "description": "Show your Kenyan pride with this vibrant t-shirt featuring the colors of the national flag in a modern beaded pattern design. Made from 100% organic cotton, this shirt is both comfortable and sustainable. Perfect for everyday wear or special occasions.",
+      "handle": "kenyan-flag-tshirt",
+      "is_giftcard": false,
+      "weight": 200,
+      "images": ["http://localhost:3000/placeholder.svg"],
+      "options": [{ "title": "Size" }],
+      "variants": [
+        {
+          "title": "Small",
+          "prices": [{ "currency_code": "usd", "amount": 2800 }],
+          "options": [{ "value": "Small" }],
+          "inventory_quantity": 18
+        },
+        {
+          "title": "Medium",
+          "prices": [{ "currency_code": "usd", "amount": 2800 }],
+          "options": [{ "value": "Medium" }],
+          "inventory_quantity": 30
+        },
+        {
+          "title": "Large",
+          "prices": [{ "currency_code": "usd", "amount": 2800 }],
+          "options": [{ "value": "Large" }],
+          "inventory_quantity": 25
+        },
+        {
+          "title": "X-Large",
+          "prices": [{ "currency_code": "usd", "amount": 2800 }],
+          "options": [{ "value": "X-Large" }],
+          "inventory_quantity": 15
+        }
+      ],
+      "tags": [{ "value": "tshirts" }, { "value": "red" }, { "value": "apparel" }, { "value": "featured" }]
+    },
+    {
+      "title": "Heritage Beadwork T-Shirt - White",
+      "subtitle": "Classic white tee with colorful bead pattern",
+      "description": "A timeless white t-shirt adorned with a vibrant Maasai beadwork pattern across the chest. The design features authentic traditional colors and symbols. Made from premium ringspun cotton for superior comfort and durability. Unisex fit.",
+      "handle": "heritage-beadwork-tshirt-white",
+      "is_giftcard": false,
+      "weight": 200,
+      "images": ["http://localhost:3000/placeholder.svg"],
+      "options": [{ "title": "Size" }],
+      "variants": [
+        {
+          "title": "Small",
+          "prices": [{ "currency_code": "usd", "amount": 2800 }],
+          "options": [{ "value": "Small" }],
+          "inventory_quantity": 20
+        },
+        {
+          "title": "Medium",
+          "prices": [{ "currency_code": "usd", "amount": 2800 }],
+          "options": [{ "value": "Medium" }],
+          "inventory_quantity": 28
+        },
+        {
+          "title": "Large",
+          "prices": [{ "currency_code": "usd", "amount": 2800 }],
+          "options": [{ "value": "Large" }],
+          "inventory_quantity": 22
+        },
+        {
+          "title": "X-Large",
+          "prices": [{ "currency_code": "usd", "amount": 2800 }],
+          "options": [{ "value": "X-Large" }],
+          "inventory_quantity": 14
+        }
+      ],
+      "tags": [{ "value": "tshirts" }, { "value": "white" }, { "value": "apparel" }]
+    },
+    {
+      "title": "Warrior Spirit T-Shirt - Green",
+      "subtitle": "Bold green tee with warrior-inspired design",
+      "description": "Channel the strength of Maasai warriors with this striking green t-shirt. Features a bold beadwork-inspired graphic that represents courage and tradition. Made from eco-friendly cotton blend. Perfect for those who want to make a statement.",
+      "handle": "warrior-spirit-tshirt-green",
+      "is_giftcard": false,
+      "weight": 200,
+      "images": ["http://localhost:3000/placeholder.svg"],
+      "options": [{ "title": "Size" }],
+      "variants": [
+        {
+          "title": "Small",
+          "prices": [{ "currency_code": "usd", "amount": 2800 }],
+          "options": [{ "value": "Small" }],
+          "inventory_quantity": 16
+        },
+        {
+          "title": "Medium",
+          "prices": [{ "currency_code": "usd", "amount": 2800 }],
+          "options": [{ "value": "Medium" }],
+          "inventory_quantity": 24
+        },
+        {
+          "title": "Large",
+          "prices": [{ "currency_code": "usd", "amount": 2800 }],
+          "options": [{ "value": "Large" }],
+          "inventory_quantity": 20
+        },
+        {
+          "title": "X-Large",
+          "prices": [{ "currency_code": "usd", "amount": 2800 }],
+          "options": [{ "value": "X-Large" }],
+          "inventory_quantity": 10
+        }
+      ],
+      "tags": [{ "value": "tshirts" }, { "value": "green" }, { "value": "apparel" }]
+    },
+    {
+      "title": "Sunset Beaded Bracelet",
+      "subtitle": "Warm orange and red beaded bracelet",
+      "description": "Inspired by the beautiful Kenyan sunsets, this bracelet features warm orange, red, and gold beads arranged in traditional patterns. Each piece is unique and handmade by Maasai women artisans. Adjustable clasp for perfect fit.",
+      "handle": "sunset-beaded-bracelet",
+      "is_giftcard": false,
+      "weight": 45,
+      "images": ["http://localhost:3000/placeholder.svg"],
+      "options": [{ "title": "Size" }],
+      "variants": [
+        {
+          "title": "Adjustable",
+          "prices": [{ "currency_code": "usd", "amount": 2200 }],
+          "options": [{ "value": "Adjustable" }],
+          "inventory_quantity": 22
+        }
+      ],
+      "tags": [{ "value": "bracelets" }, { "value": "red" }]
+    },
+    {
+      "title": "Savanna Statement Necklace",
+      "subtitle": "Multi-strand beaded necklace in earth tones",
+      "description": "A stunning multi-strand necklace featuring earth-toned beads that capture the essence of the African savanna. This statement piece combines traditional Maasai beadwork with contemporary style. Perfect for special occasions or to elevate any outfit.",
+      "handle": "savanna-statement-necklace",
+      "is_giftcard": false,
+      "weight": 150,
+      "images": ["http://localhost:3000/placeholder.svg"],
+      "options": [{ "title": "Style" }],
+      "variants": [
+        {
+          "title": "Standard",
+          "prices": [{ "currency_code": "usd", "amount": 5800 }],
+          "options": [{ "value": "Standard" }],
+          "inventory_quantity": 8
+        }
+      ],
+      "tags": [{ "value": "necklaces" }, { "value": "black" }, { "value": "featured" }]
+    },
+    {
+      "title": "Tribal Elegance Earrings",
+      "subtitle": "Handcrafted beaded drop earrings",
+      "description": "Elegant drop earrings featuring intricate Maasai beadwork in traditional patterns. Lightweight and comfortable for all-day wear. Each pair is handcrafted and slightly unique. Hypoallergenic hooks suitable for sensitive ears.",
+      "handle": "tribal-elegance-earrings",
+      "is_giftcard": false,
+      "weight": 15,
+      "images": ["http://localhost:3000/placeholder.svg"],
+      "options": [{ "title": "Color" }],
+      "variants": [
+        {
+          "title": "Red & Black",
+          "prices": [{ "currency_code": "usd", "amount": 1800 }],
+          "options": [{ "value": "Red & Black" }],
+          "inventory_quantity": 25
+        },
+        {
+          "title": "Green & White",
+          "prices": [{ "currency_code": "usd", "amount": 1800 }],
+          "options": [{ "value": "Green & White" }],
+          "inventory_quantity": 20
+        }
+      ],
+      "tags": [{ "value": "earrings" }, { "value": "red" }]
+    },
+    {
+      "title": "Cultural Pride Ankle Bracelet",
+      "subtitle": "Delicate beaded anklet with traditional charm",
+      "description": "A delicate anklet featuring small glass beads in Kenyan flag colors with a traditional Maasai shield charm. Perfect for beach days or adding a touch of culture to any outfit. Adjustable length with secure clasp.",
+      "handle": "cultural-pride-ankle-bracelet",
+      "is_giftcard": false,
+      "weight": 25,
+      "images": ["http://localhost:3000/placeholder.svg"],
+      "options": [{ "title": "Size" }],
+      "variants": [
+        {
+          "title": "Adjustable",
+          "prices": [{ "currency_code": "usd", "amount": 1600 }],
+          "options": [{ "value": "Adjustable" }],
+          "inventory_quantity": 35
+        }
+      ],
+      "tags": [{ "value": "anklets" }, { "value": "green" }]
+    },
+    {
+      "title": "Artisan Collection Gift Set",
+      "subtitle": "Curated set of bracelet, necklace, and earrings",
+      "description": "A beautifully packaged gift set featuring a coordinating bracelet, necklace, and pair of earrings. All pieces are handcrafted by the same artisan for perfect harmony. Comes in an elegant gift box with information about the artisan and Maasai beadwork traditions. Perfect for gifting or treating yourself.",
+      "handle": "artisan-collection-gift-set",
+      "is_giftcard": false,
+      "weight": 250,
+      "images": ["http://localhost:3000/placeholder.svg"],
+      "options": [{ "title": "Collection" }],
+      "variants": [
+        {
+          "title": "Heritage Collection",
+          "prices": [{ "currency_code": "usd", "amount": 8900 }],
+          "options": [{ "value": "Heritage Collection" }],
+          "inventory_quantity": 5
+        },
+        {
+          "title": "Pride Collection",
+          "prices": [{ "currency_code": "usd", "amount": 8900 }],
+          "options": [{ "value": "Pride Collection" }],
+          "inventory_quantity": 6
+        }
+      ],
+      "tags": [{ "value": "sets" }, { "value": "featured" }, { "value": "gift" }]
+    }
+  ]
+}

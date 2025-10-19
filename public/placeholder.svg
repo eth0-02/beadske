@@ -1,0 +1,27 @@
+<svg width="400" height="400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="beadPattern" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="3" fill="#BB0A1E" opacity="0.3"/>
+      <circle cx="30" cy="10" r="3" fill="#0A6E29" opacity="0.3"/>
+      <circle cx="10" cy="30" r="3" fill="#000000" opacity="0.2"/>
+      <circle cx="30" cy="30" r="3" fill="#BB0A1E" opacity="0.3"/>
+    </pattern>
+  </defs>
+  
+  <rect width="400" height="400" fill="#F5F5F0"/>
+  <rect width="400" height="400" fill="url(#beadPattern)"/>
+  
+  <!-- Bead circles -->
+  <circle cx="200" cy="150" r="30" fill="#BB0A1E" opacity="0.8"/>
+  <circle cx="150" cy="200" r="25" fill="#000000" opacity="0.8"/>
+  <circle cx="250" cy="200" r="25" fill="#0A6E29" opacity="0.8"/>
+  <circle cx="200" cy="250" r="30" fill="#BB0A1E" opacity="0.8"/>
+  
+  <!-- Text -->
+  <text x="200" y="320" font-family="Arial, sans-serif" font-size="20" fill="#000000" text-anchor="middle" font-weight="bold">
+    Maasai Beadwork
+  </text>
+  <text x="200" y="345" font-family="Arial, sans-serif" font-size="14" fill="#666666" text-anchor="middle">
+    Product Image
+  </text>
+</svg>

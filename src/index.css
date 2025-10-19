@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-body bg-bead-neutral text-bead-black antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+}
+
+@layer components {
+  /* Bead-inspired dotted divider */
+  .bead-divider {
+    @apply border-t-4 border-dotted border-bead-red my-8;
+  }
+
+  /* Bead string separator */
+  .bead-string {
+    @apply flex items-center justify-center gap-2 my-6;
+  }
+
+  .bead-dot {
+    @apply w-3 h-3 rounded-full;
+  }
+
+  /* Pill button with bead styling */
+  .btn-bead {
+    @apply px-6 py-3 rounded-bead font-semibold transition-all duration-300 
+           hover:shadow-lg active:scale-95;
+  }
+
+  .btn-bead-primary {
+    @apply btn-bead bg-bead-red text-white hover:shadow-bead-glow-red;
+  }
+
+  .btn-bead-secondary {
+    @apply btn-bead bg-bead-green text-white hover:shadow-bead-glow-green;
+  }
+
+  .btn-bead-outline {
+    @apply btn-bead border-2 border-bead-black bg-transparent text-bead-black 
+           hover:bg-bead-black hover:text-white;
+  }
+
+  /* Product card with bead border */
+  .product-card {
+    @apply bg-white rounded-lg overflow-hidden shadow-md 
+           transition-all duration-300 hover:shadow-xl 
+           hover:border-2 hover:border-bead-red;
+  }
+
+  /* Bead pattern background */
+  .bead-pattern-bg {
+    background-image: 
+      radial-gradient(circle, rgba(187, 10, 30, 0.1) 1px, transparent 1px),
+      radial-gradient(circle, rgba(10, 110, 41, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px, 30px 30px;
+    background-position: 0 0, 10px 10px;
+  }
+
+  /* Input fields */
+  .input-bead {
+    @apply w-full px-4 py-3 border-2 border-gray-300 rounded-lg 
+           focus:border-bead-red focus:outline-none focus:ring-2 
+           focus:ring-bead-red focus:ring-opacity-20 transition-all;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #BB0A1E;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8a0716;
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Cursor trail effect (optional enhancement) */
+.cursor-bead {
+  pointer-events: none;
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(187, 10, 30, 0.5);
+  z-index: 9999;
+  animation: fade-out 0.5s forwards;
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+    transform: scale(0);
+  }
+}

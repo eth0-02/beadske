@@ -1,0 +1,26 @@
+{
+  "store": {
+    "currencies": ["usd"],
+    "default_currency_code": "usd"
+  },
+  "regions": [
+    {
+      "id": "reg_01",
+      "name": "US",
+      "currency_code": "usd",
+      "tax_rate": 0,
+      "payment_providers": ["manual"],
+      "fulfillment_providers": ["manual"],
+      "countries": ["us"]
+    }
+  ],
+  "shipping_options": [
+    {
+      "name": "Standard Shipping",
+      "region_id": "reg_01",
+      "provider_id": "manual",
+      "price_type": "flat_rate",
+      "amount": 1000
+    }
+  ]
+}

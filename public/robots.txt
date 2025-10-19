@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://maasaibeadwork.com/sitemap.xml
