@@ -15,6 +15,7 @@ import Login from './pages/Login'
 import Blog from './pages/Blog'
 import BlogPost from './pages/BlogPost'
 import CustomDesign from './pages/CustomDesign'
+import TestSanity from './pages/TestSanity'
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           <Route path="/checkout/success" element={<CheckoutSuccess />} />
           <Route path="/checkout/cancel" element={<CheckoutCancel />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/test-sanity" element={<TestSanity />} />
           {/* 404 Page */}
           <Route path="*" element={
             <div className="container mx-auto px-4 py-20 text-center">

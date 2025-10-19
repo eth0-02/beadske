@@ -28,7 +28,7 @@ export function urlFor(source: any) {
   return builder.image(source)
 }
 
-// Fetch all products
+// Fetch all products - always fresh data
 export async function getProducts() {
   return client.fetch(
     `*[_type == "product"] | order(_createdAt desc) {
