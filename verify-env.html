@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Environment Variables Check</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .var {
+            padding: 10px;
+            margin: 10px 0;
+            background: #f9f9f9;
+            border-left: 4px solid #4CAF50;
+        }
+        .missing {
+            border-left-color: #f44336;
+        }
+        .value {
+            font-family: monospace;
+            color: #666;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>🔍 Environment Variables Check</h1>
+        <p>This page shows which environment variables are available in the build.</p>
+    </div>
+
+    <div class="card">
+        <h2>Sanity Configuration</h2>
+        <div class="var" id="project-id">
+            <strong>VITE_SANITY_PROJECT_ID:</strong>
+            <div class="value" id="project-id-value">Loading...</div>
+        </div>
+        <div class="var" id="dataset">
+            <strong>VITE_SANITY_DATASET:</strong>
+            <div class="value" id="dataset-value">Loading...</div>
+        </div>
+        <div class="var" id="api-version">
+            <strong>VITE_SANITY_API_VERSION:</strong>
+            <div class="value" id="api-version-value">Loading...</div>
+        </div>
+        <div class="var" id="token">
+            <strong>VITE_SANITY_TOKEN:</strong>
+            <div class="value" id="token-value">Loading...</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Other Configuration</h2>
+        <div class="var" id="stripe">
+            <strong>VITE_STRIPE_PUBLISHABLE_KEY:</strong>
+            <div class="value" id="stripe-value">Loading...</div>
+        </div>
+        <div class="var" id="payment">
+            <strong>VITE_PAYMENT_SERVER_URL:</strong>
+            <div class="value" id="payment-value">Loading...</div>
+        </div>
+    </div>
+
+    <script type="module">
+        function checkVar(name, elementId, valueId) {
+            const value = import.meta.env[name];
+            const element = document.getElementById(elementId);
+            const valueElement = document.getElementById(valueId);
+            
+            if (value) {
+                valueElement.textContent = name.includes('TOKEN') || name.includes('KEY') 
+                    ? value.substring(0, 20) + '...' 
+                    : value;
+                element.classList.remove('missing');
+            } else {
+                valueElement.textContent = '❌ NOT SET';
+                element.classList.add('missing');
+            }
+        }
+
+        checkVar('VITE_SANITY_PROJECT_ID', 'project-id', 'project-id-value');
+        checkVar('VITE_SANITY_DATASET', 'dataset', 'dataset-value');
+        checkVar('VITE_SANITY_API_VERSION', 'api-version', 'api-version-value');
+        checkVar('VITE_SANITY_TOKEN', 'token', 'token-value');
+        checkVar('VITE_STRIPE_PUBLISHABLE_KEY', 'stripe', 'stripe-value');
+        checkVar('VITE_PAYMENT_SERVER_URL', 'payment', 'payment-value');
+    </script>
+</body>
+</html>

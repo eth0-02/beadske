@@ -1,12 +1,15 @@
 import { createClient } from '@sanity/client'
 import imageUrlBuilder from '@sanity/image-url'
 
+// Create Sanity client with proper configuration
+const token = import.meta.env.VITE_SANITY_TOKEN || ''
+
 export const client = createClient({
-  projectId: 'wrmf59p3',
-  dataset: 'production',
+  projectId: import.meta.env.VITE_SANITY_PROJECT_ID || 'wrmf59p3',
+  dataset: import.meta.env.VITE_SANITY_DATASET || 'production',
   useCdn: false, // Disable CDN to get real-time updates
-  apiVersion: '2024-01-01',
-  token: import.meta.env.VITE_SANITY_TOKEN, // Optional: for draft content
+  apiVersion: import.meta.env.VITE_SANITY_API_VERSION || '2024-01-01',
+  token: token || undefined, // Token for write operations
   perspective: 'published', // Use 'published' to see latest published content
   ignoreBrowserTokenWarning: true,
   withCredentials: false,

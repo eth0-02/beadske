@@ -47,13 +47,19 @@ export default function TestSanity() {
               <strong>Last Fetch:</strong> {lastFetch.toLocaleTimeString()}
             </p>
             <p className="text-sm text-blue-800 mt-1">
-              <strong>Project ID:</strong> {import.meta.env.VITE_SANITY_PROJECT_ID}
+              <strong>Project ID:</strong> {import.meta.env.VITE_SANITY_PROJECT_ID || '❌ NOT SET'}
             </p>
             <p className="text-sm text-blue-800 mt-1">
-              <strong>Dataset:</strong> {import.meta.env.VITE_SANITY_DATASET}
+              <strong>Dataset:</strong> {import.meta.env.VITE_SANITY_DATASET || '❌ NOT SET'}
             </p>
             <p className="text-sm text-blue-800 mt-1">
-              <strong>Token:</strong> {import.meta.env.VITE_SANITY_TOKEN ? '✅ Configured' : '❌ Missing'}
+              <strong>API Version:</strong> {import.meta.env.VITE_SANITY_API_VERSION || '❌ NOT SET'}
+            </p>
+            <p className="text-sm text-blue-800 mt-1">
+              <strong>Token:</strong> {import.meta.env.VITE_SANITY_TOKEN ? `✅ ${import.meta.env.VITE_SANITY_TOKEN.substring(0, 20)}...` : '❌ NOT SET'}
+            </p>
+            <p className="text-sm text-blue-800 mt-1">
+              <strong>Payment Server:</strong> {import.meta.env.VITE_PAYMENT_SERVER_URL || '❌ NOT SET'}
             </p>
           </div>
 
