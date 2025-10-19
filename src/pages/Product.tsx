@@ -9,6 +9,7 @@ import ProductReviews from '@/components/ProductReviews'
 import { Product as ProductType } from '@/lib/types'
 import { useStore } from '@/lib/store'
 import { mockProducts } from '@/lib/mockProducts'
+import { getProduct, getProducts } from '@/lib/sanity'
 
 export default function Product() {
   const { handle } = useParams<{ handle: string }>()
@@ -25,51 +26,60 @@ export default function Product() {
     const fetchProduct = async () => {
       setLoading(true)
       try {
-        // Try to fetch from backend
-        const response = await fetch(`http://localhost:9000/store/products?handle=${handle}`)
-        if (response.ok) {
-          const data = await response.json()
-          if (data.products && data.products.length > 0) {
-            const p = data.products[0]
-            const formattedProduct = {
-              id: p.id || Math.random().toString(),
+        // Fetch from Sanity CMS
+        const sanityProduct = await getProduct(handle || '')
+        
+        if (sanityProduct) {
+          // Transform Sanity product to match Product type
+          const formattedProduct = {
+            id: sanityProduct._id,
+            title: sanityProduct.title,
+            description: sanityProduct.description,
+            handle: sanityProduct.slug,
+            thumbnail: sanityProduct.images?.[0] || '/placeholder.svg',
+            images: sanityProduct.images?.map((img: string) => ({ url: img })) || [{ url: '/placeholder.svg' }],
+            price: sanityProduct.price,
+            inventory: sanityProduct.inventory,
+            variants: [{
+              id: sanityProduct._id,
+              title: 'Default',
+              prices: [{
+                amount: sanityProduct.price * 100,
+                currency_code: 'USD'
+              }]
+            }],
+            tags: sanityProduct.category ? [{ value: sanityProduct.category.slug }] : [],
+            metadata: {},
+          }
+          setProduct(formattedProduct)
+          
+          // Get related products
+          const allProducts = await getProducts()
+          const related = allProducts
+            .filter((p: any) => p.slug !== handle && p.category?.slug === sanityProduct.category?.slug)
+            .slice(0, 3)
+            .map((p: any) => ({
+              id: p._id,
               title: p.title,
               description: p.description,
-              handle: p.handle,
-              thumbnail: p.images?.[0] || '/placeholder.svg',
-              images: p.images?.map((img: string) => ({ url: img })) || [{ url: '/placeholder.svg' }],
-              variants: p.variants || [],
-              tags: p.tags || [],
-              metadata: p.metadata || {},
-            }
-            setProduct(formattedProduct)
-            
-            // Get related products
-            const category = p.tags?.[0]?.value
-            const allResponse = await fetch('http://localhost:9000/store/products?limit=50')
-            if (allResponse.ok) {
-              const allData = await allResponse.json()
-              const related = allData.products
-                .filter((prod: any) => prod.handle !== handle && prod.tags?.some((tag: any) => tag.value === category))
-                .slice(0, 3)
-                .map((prod: any) => ({
-                  id: prod.id || Math.random().toString(),
-                  title: prod.title,
-                  description: prod.description,
-                  handle: prod.handle,
-                  thumbnail: prod.images?.[0] || '/placeholder.svg',
-                  variants: prod.variants || [],
-                }))
-              setRelatedProducts(related)
-            }
-          } else {
-            throw new Error('Product not found')
-          }
+              handle: p.slug,
+              thumbnail: p.image || '/placeholder.svg',
+              price: p.price,
+              variants: [{
+                id: p._id,
+                title: 'Default',
+                prices: [{
+                  amount: p.price * 100,
+                  currency_code: 'USD'
+                }]
+              }],
+            }))
+          setRelatedProducts(related)
         } else {
-          throw new Error('Backend not available')
+          throw new Error('Product not found')
         }
       } catch (error) {
-        console.log('Using mock data - backend not available')
+        console.error('Error fetching from Sanity:', error)
         // Fallback to mock data
         const foundProduct = mockProducts.find(p => p.handle === handle)
         if (foundProduct) {
