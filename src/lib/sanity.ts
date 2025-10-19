@@ -8,6 +8,7 @@ export const client = createClient({
   apiVersion: '2024-01-01',
   token: import.meta.env.VITE_SANITY_TOKEN, // Optional: for draft content
   perspective: 'published', // Use 'published' to see latest published content
+  ignoreBrowserTokenWarning: true,
   stega: {
     enabled: false,
     studioUrl: '/studio',
