@@ -76,33 +76,6 @@ export default function CustomDesign() {
     }
   }
 
-  const uploadImages = async (): Promise<any[]> => {
-    const uploadedImages: any[] = []
-    for (const image of images) {
-      const formData = new FormData()
-      formData.append('file', image)
-      
-      const response = await fetch(
-        `https://api.sanity.io/v2021-10-21/assets/images/${import.meta.env.VITE_SANITY_PROJECT_ID}/${import.meta.env.VITE_SANITY_DATASET}`,
-        {
-          method: 'POST',
-          body: formData,
-        }
-      )
-      
-      if (response.ok) {
-        const data = await response.json()
-        uploadedImages.push({
-          _type: 'image',
-          asset: {
-            _type: 'reference',
-            _ref: data.document._id,
-          },
-        })
-      }
-    }
-    return uploadedImages
-  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -110,30 +83,58 @@ export default function CustomDesign() {
     setError(null)
 
     try {
-      // Upload images if any
-      let referenceImages: any[] = []
-      if (images.length > 0) {
-        referenceImages = await uploadImages()
+      // Submit to Formspree
+      const formspreeData = new FormData()
+      formspreeData.append('customerName', formData.customerName)
+      formspreeData.append('email', formData.email)
+      formspreeData.append('phone', formData.phone)
+      formspreeData.append('designType', formData.designType)
+      formspreeData.append('colors', formData.colors.join(', '))
+      formspreeData.append('size', formData.size)
+      formspreeData.append('description', formData.description)
+      formspreeData.append('budget', formData.budget)
+      formspreeData.append('deadline', formData.deadline)
+      
+      // Add images to form data
+      images.forEach((image, index) => {
+        formspreeData.append(`image${index + 1}`, image)
+      })
+
+      // Submit to Formspree
+      const formspreeId = import.meta.env.VITE_FORMSPREE_FORM_ID || 'YOUR_FORM_ID'
+      const formspreeResponse = await fetch(`https://formspree.io/f/${formspreeId}`, {
+        method: 'POST',
+        body: formspreeData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+
+      if (!formspreeResponse.ok) {
+        throw new Error('Failed to submit to Formspree')
       }
 
-      // Create the custom design request in Sanity
-      const request = {
-        _type: 'customDesignRequest',
-        customerName: formData.customerName,
-        email: formData.email,
-        phone: formData.phone,
-        designType: formData.designType,
-        colors: formData.colors,
-        size: formData.size,
-        description: formData.description,
-        budget: formData.budget,
-        deadline: formData.deadline,
-        referenceImages,
-        status: 'new',
-        createdAt: new Date().toISOString(),
+      // Also save to Sanity for backup/tracking
+      try {
+        const request = {
+          _type: 'customDesignRequest',
+          customerName: formData.customerName,
+          email: formData.email,
+          phone: formData.phone,
+          designType: formData.designType,
+          colors: formData.colors,
+          size: formData.size,
+          description: formData.description,
+          budget: formData.budget,
+          deadline: formData.deadline,
+          status: 'new',
+          createdAt: new Date().toISOString(),
+        }
+        await sanityClient.create(request)
+      } catch (sanityError) {
+        console.warn('Sanity backup failed, but Formspree succeeded:', sanityError)
       }
 
-      await sanityClient.create(request)
       setSubmitted(true)
     } catch (err) {
       console.error('Error submitting request:', err)
