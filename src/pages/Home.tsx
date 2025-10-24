@@ -6,7 +6,7 @@ import BeadDivider from '@/components/BeadDivider'
 import ProductCard from '@/components/ProductCard'
 import { useEffect, useState } from 'react'
 import { Product } from '@/lib/types'
-import { mockProducts } from '@/lib/mockProducts'
+import { getFeaturedProducts } from '@/lib/sanity'
 
 export default function Home() {
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([])
@@ -15,33 +15,33 @@ export default function Home() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        // Try to fetch from backend
-        const response = await fetch('http://localhost:9000/store/products?limit=50')
-        if (response.ok) {
-          const data = await response.json()
-          const featured = data.products
-            .filter((p: any) => p.tags?.some((tag: any) => tag.value === 'featured'))
-            .slice(0, 4)
-            .map((p: any) => ({
-              id: p.id || Math.random().toString(),
-              title: p.title,
-              description: p.description,
-              handle: p.handle,
-              thumbnail: p.images?.[0] || '/placeholder.svg',
-              variants: p.variants || [],
-              tags: p.tags || [],
-            }))
-          setFeaturedProducts(featured)
-        } else {
-          throw new Error('Backend not available')
-        }
+        // Fetch featured products from Sanity CMS
+        const sanityProducts = await getFeaturedProducts()
+        
+        // Transform Sanity products to match Product type
+        const formattedProducts = sanityProducts.map((p: any) => ({
+          id: p._id,
+          title: p.title,
+          description: p.description,
+          handle: p.slug,
+          thumbnail: p.image || '/placeholder.svg',
+          price: p.price,
+          inventory: p.inventory,
+          variants: [{
+            id: p._id,
+            title: 'Default',
+            prices: [{
+              amount: p.price * 100, // Convert to cents
+              currency_code: 'USD'
+            }]
+          }],
+          tags: [],
+        })).slice(0, 4)
+        
+        setFeaturedProducts(formattedProducts)
       } catch (error) {
-        console.log('Using mock data - backend not available')
-        // Fallback to mock data
-        const featured = mockProducts.filter(p => 
-          p.tags?.some(tag => tag.value === 'featured')
-        ).slice(0, 4)
-        setFeaturedProducts(featured)
+        console.error('Error fetching featured products from Sanity:', error)
+        setFeaturedProducts([])
       } finally {
         setLoading(false)
       }
